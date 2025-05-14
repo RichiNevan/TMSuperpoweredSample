@@ -127,7 +127,7 @@ android {
     }
     externalNativeBuild {
        cmake {
-           path "CMakeLists.txt"
+           path "src/main/jni/CMakeLists.txt"
         }
     }
 }

@@ -1,96 +1,60 @@
-import { Text, TouchableOpacity, View, StyleSheet } from "react-native";
-//import Slider from "@react-native-community/slider";
-import { useRef } from "react";
-//import NativeSpecs from "@/specs/NativeSpecs";
+import React from 'react';
+import {
+  Button,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import NativeSuperpoweredModule from '@/specs/NativeSuperpoweredModule';
 
-export default function Index() {
-  const volumeRef = useRef(null);
-  const freqLRef = useRef(null);
-  const freqRRef = useRef(null);
+function App(): React.JSX.Element {
+  const [value, setValue] = React.useState('');
+  const [reversedValue, setReversedValue] = React.useState('');
 
-  // const setupAudio = () => {
-  //   NativeSpecs.setupAudio();
-  // };
-  // const cleanupAudio = () => {
-  //   NativeSpecs.cleanupAudio();
-  // };
-  // const setVolume = (newVolume) => {
-  //   NativeSpecs.setVolume(newVolume);
-  // };
-  // const startOscillators = (freqL, waveformL, freqR, waveformR, initialVolume) => {
-  //   NativeSpecs.startOscillators(freqL, waveformL, freqR, waveformR, initialVolume);
-  // };
-  // const stopOscillators = () => {
-  //   NativeSpecs.stopOscillators();
-  // };
+  const onPress = () => {
+    const revString = NativeSuperpoweredModule.reverseString(value);
+    setReversedValue(revString);
+  };
 
   return (
-    <>
-      <View style={styles.view}>
-        {/* <TouchableOpacity onPress={() => startOscillators(200, 0, 210, 0, 0.5)} style={styles.button}>
-          <Text style={styles.buttonText}>Start Oscillators</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => stopOscillators()} style={styles.button}>
-          <Text style={styles.buttonText}>Stop Oscillators</Text>
-        </TouchableOpacity> */}
+    <SafeAreaView style={styles.container}>
+      <View>
+        <Text style={styles.title}>
+          Welcome to C++ Turbo Native Module Example
+        </Text>
+        <Text>Write down here he text you want to revert</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Write your text here"
+          onChangeText={setValue}
+          value={value}
+        />
+        <Button title="Reverse" onPress={onPress} />
+        <Text>Reversed text: {reversedValue}</Text>
       </View>
-      <View style={styles.view}>
-        <Text style={styles.label}>Volume</Text>
-        {/* <Slider
-          style={{ width: "70%", height: 40, margin: "auto" }}
-          value={volumeRef.current || -30} // Initial value from the voice
-          minimumValue={-60}
-          maximumValue={-10}
-          vertical={true}
-          onValueChange={(value) => {
-            setVolume(value); // Update the ref value
-          }}
-        />
-          <Text style={styles.label}>Frequency Left</Text>
-        <Slider
-          style={{ width: "70%", height: 40, margin: "auto" }}
-          value={freqLRef.current || -30} // Initial value from the voice
-          minimumValue={-60}
-          maximumValue={-10}
-          vertical={true}
-          onValueChange={(value) => {
-            freqLRef.current = value; // Update the ref value
-          }}
-        />
-          <Text style={styles.label}>Frequency Right</Text>
-        <Slider
-          style={{ width: "70%", height: 40, margin: "auto" }}
-          value={freqRRef.current || -30} // Initial value from the voice
-          minimumValue={-60}
-          maximumValue={-10}
-          vertical={true}
-          onValueChange={(value) => {
-            freqRRef.current = value; // Update the ref value
-          }} 
-        />
-           */}
-      </View>
-    </>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  button: {
-    backgroundColor: "#007AFF",
-    padding: 10,
-    borderRadius: 5,
-    margin: 5,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-  },
-  view: {
+  container: {
     flex: 1,
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 18,
+    marginBottom: 20,
+  },
+  textInput: {
+    borderColor: 'black',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
   },
 });
+
+export default App;
