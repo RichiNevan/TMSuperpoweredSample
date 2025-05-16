@@ -9,6 +9,10 @@ import {
 } from 'react-native';
 import NativeSuperpoweredModule from '@/specs/NativeSuperpoweredModule';
 
+const setupAudioRN = NativeSuperpoweredModule.setupAudio();
+
+//setupAudioRN()
+
 function App(): React.JSX.Element {
   const [value, setValue] = React.useState('');
   const [reversedValue, setReversedValue] = React.useState('');

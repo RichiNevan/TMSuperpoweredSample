@@ -1,14 +1,27 @@
-
 cmake_minimum_required(VERSION 3.13)
 
-# Define the library name here.
 project(appmodules)
 
-# This file includes all the necessary to let you build your React Native application
 include(${REACT_ANDROID_DIR}/cmake-utils/ReactNative-application.cmake)
 
-# Define where the additional source code lives. We need to crawl back the jni, main, src, app, android folders
-target_sources(${CMAKE_PROJECT_NAME} PRIVATE ../../../../../cpp/NativeSuperpoweredModule.cpp)
+add_definitions(-Wno-vla-cxx-extension)
 
-# Define where CMake can find the additional header files. We need to crawl back the jni, main, src, app, android folders
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+target_sources(${CMAKE_PROJECT_NAME} PRIVATE 
+../../../../../cpp/NativeSuperpoweredModule.cpp
+../../../../../cpp/SuperpoweredAndroidAudioIO.cpp)
+
 target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC ../../../../../cpp)
+
+# Full path to static libs
+set(SUPERPOWERED_DIR ${CMAKE_CURRENT_LIST_DIR}/../../../../../cpp)
+
+target_link_libraries(
+        ${CMAKE_PROJECT_NAME}
+        log
+        android
+        OpenSLES
+        ${SUPERPOWERED_DIR}/libSuperpoweredAndroid${ANDROID_ABI}.a
+)
